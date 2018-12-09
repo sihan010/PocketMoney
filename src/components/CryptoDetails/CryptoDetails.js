@@ -46,8 +46,8 @@ class CryptoDetails extends Component {
         let symbol= initialData.symbol;
         this.apiCall(symbol);
 
-        // AdSettings.clearTestDevices();
-        // AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+        AdSettings.clearTestDevices();
+        AdSettings.addTestDevice(AdSettings.currentDeviceHash);
         InterstitialAdManager.showAd('345487866030573_345535846025775')
         .then(didClick => {
             ToastAndroid.show('Thank you for supproting us.', ToastAndroid.SHORT)
