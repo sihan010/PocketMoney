@@ -1,5 +1,5 @@
 const allCryptoCurrencyList = (startIndex) => {
-    let endpoint = `https://api.coinmarketcap.com/v2/ticker/?start=${startIndex}&limit=100&sort=rank`;
+    let endpoint = `https://api.coinmarketcap.com/v2/ticker/?start=${startIndex}&limit=10&sort=rank`;
     //let endpoint = `https://api.coinmarketcap.com/v2/ticker/?start=${startIndex}&limit=10&sort=rank`;
     return fetch(endpoint)
         .then(res => res.json())
@@ -39,4 +39,27 @@ const cryptoChartData = (crypto, fiat) => {
         })
 }
 
-export { allCryptoCurrencyList, singleCryptoCurrencyDetails, cryptoChartData }
+const newsFeedAndcategory = () =>{
+    let endpoint = "https://min-api.cryptocompare.com/data/news/feedsandcategories";
+    return fetch(endpoint)
+        .then(res=>res.json())
+        .then(data =>{
+            return data.Data;
+        })
+}
+
+const NewsFetcher = (feed, category) =>{
+    let endpoint=[];
+    if(feed==undefined || category==undefined)
+        endpoint[0] = 'https://min-api.cryptocompare.com/data/v2/news/?categories=BTC&feeds=cryptocompare'
+    else
+        endpoint[0] = `https://min-api.cryptocompare.com/data/v2/news/?categories=${category}&feeds=${feed}`
+    
+    return fetch(endpoint[0])
+        .then(res=>res.json())
+        .then(data =>{
+            return data.Data;
+        })
+}
+
+export { allCryptoCurrencyList, singleCryptoCurrencyDetails, cryptoChartData, newsFeedAndcategory, NewsFetcher }

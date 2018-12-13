@@ -148,7 +148,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-fbads')
+    implementation project(':react-native-fbads')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')

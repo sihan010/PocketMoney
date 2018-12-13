@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation'
 
 const CryptoStack = createStackNavigator(
     {
-        List: List,
+        List: List,            
         Details: Details,
         Chart : CryptoChart
     },

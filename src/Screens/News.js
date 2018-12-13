@@ -1,32 +1,13 @@
-import React, {Component} from 'reactn';
-import {StyleSheet, Text, View} from 'react-native';
+import {createStackNavigator} from 'react-navigation'
+import NewsList from '../components/NewsList'
+import SingleNews from '../components/SingleNews'
 
-class News extends Component{
-    constructor(props){
-        super(props);
-    }
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>Fiat To Crypto News</Text>      
-            </View>
-        );
-      }
-}
-    
-const styles = StyleSheet.create({
-    container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    }
-});
+const News = createStackNavigator({
+    NewsList: NewsList,
+    SingleNews: SingleNews
+},
+{
+    initialRouteName:'NewsList'
+})
 
 export default News;

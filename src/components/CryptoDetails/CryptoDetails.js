@@ -28,8 +28,8 @@ class CryptoDetails extends Component {
                 title: title,
                 headerStyle: {
                     backgroundColor: '#1A5276',
-                },
-                headerTintColor: '#fff',
+                },                
+                headerTintColor: '#E8DAEF',
                 headerTitleStyle: {
                     flex: 1,
                     textAlign: 'center',
@@ -46,15 +46,15 @@ class CryptoDetails extends Component {
         let symbol= initialData.symbol;
         this.apiCall(symbol);
 
-        AdSettings.clearTestDevices();
-        AdSettings.addTestDevice(AdSettings.currentDeviceHash);
-        InterstitialAdManager.showAd('345487866030573_345535846025775')
-        .then(didClick => {
-            ToastAndroid.show('Thank you for supproting us.', ToastAndroid.SHORT)
-        })
-        .catch(error => {
-            ToastAndroid.show(error, ToastAndroid.SHORT)
-        });
+        // AdSettings.clearTestDevices();
+        // AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+        // InterstitialAdManager.showAd('345487866030573_345535846025775')
+        // .then(didClick => {
+        //     ToastAndroid.show('Thank you for supproting us.', ToastAndroid.SHORT)
+        // })
+        // .catch(error => {
+        //     ToastAndroid.show(error, ToastAndroid.SHORT)
+        // });
     }
 
     apiCall(symbol){        

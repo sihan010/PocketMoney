@@ -1,5 +1,6 @@
 import React, { Component } from 'reactn';
 import TabNavigator from './src/navigation/TabNavigator'
+import DrawerNavigator from './src/navigation/DrawerNavigator'
 
 export default class App extends Component {
   constructor(props) {
@@ -14,8 +15,9 @@ export default class App extends Component {
   }
 
   render() {
+    //<TabNavigator />
     return (
-      <TabNavigator />
+      <DrawerNavigator />
     );
   }
 }

@@ -19,24 +19,28 @@ class CryptoList extends Component {
         }
     }
 
-    static navigationOptions = () => {
-        return (
-            {
-                title: 'Pocket Money',
-                headerStyle: {
-                    backgroundColor: '#1A5276',
-                },
-                headerTintColor: '#E8DAEF',
-                headerTitleStyle: {
-                    flex: 1,
-                    textAlign: 'center',
-                    fontFamily: 'Dosis',
-                    fontWeight: '200'
-                }
-            }
-        )
-    }
-
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: 'Crypto Currencies',
+            headerStyle: {
+                backgroundColor: '#1A5276',
+            },
+            headerTintColor: '#E8DAEF',
+            headerTitleStyle: {
+                flex: 1,
+                textAlign: 'center',
+                fontFamily: 'Dosis',
+                fontWeight: '200',
+                marginLeft:-40
+            },
+            headerLeft:(
+                <TouchableOpacity onPress={()=>navigation.toggleDrawer()} style={{marginLeft:20}}>
+                    <Icon name="ios-menu" color="white" size={30}/>
+                </TouchableOpacity>
+            )
+        }        
+    } 
+      
     callAPI() {
         this.setGlobal({
             loading: true

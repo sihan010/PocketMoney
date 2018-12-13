@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const TabNavigator = createBottomTabNavigator(
     {
         CryptoCurrencies: CryptoCurrencies,
-        //News: News,
+        News: News,
     },
     {
         defaultNavigationOptions: ({ navigation }) => ({
