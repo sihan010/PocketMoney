@@ -51,7 +51,7 @@ const newsFeedAndcategory = () =>{
 const NewsFetcher = (feed, category) =>{
     let endpoint=[];
     if(feed==undefined || category==undefined)
-        endpoint[0] = 'https://min-api.cryptocompare.com/data/v2/news/?categories=BTC&feeds=cryptocompare'
+        endpoint[0] = 'https://min-api.cryptocompare.com/data/v2/news/?categories=BTC&feeds=coindesk'
     else
         endpoint[0] = `https://min-api.cryptocompare.com/data/v2/news/?categories=${category}&feeds=${feed}`
     

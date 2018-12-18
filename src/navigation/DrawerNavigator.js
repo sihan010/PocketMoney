@@ -5,7 +5,7 @@ import News from '../Screens/News'
 import CryptoCurrencies from '../Screens/CryptoCurrencies'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const width = Dimensions.get("screen").width;
+//const width = Dimensions.get("screen").width;
 
 const CustomDrawer = (props) =>(
     <SafeAreaView style={{flex:1, backgroundColor:'#D6EAF8'}}>
@@ -23,14 +23,6 @@ const CustomDrawer = (props) =>(
 
 const RootNavigator = createDrawerNavigator(
     {
-        "Crypto News": {
-            screen: News,
-            navigationOptions:{
-                drawerIcon:({tintColor})=>(
-                    <Icon name="ios-paper" color={tintColor} size={26} />
-                ),
-            }
-        },
         "Crypto Currencies": {
             screen: CryptoCurrencies,
             navigationOptions:{
@@ -39,6 +31,14 @@ const RootNavigator = createDrawerNavigator(
                 ),
             }
         },        
+        "Crypto News": {
+            screen: News,
+            navigationOptions:{
+                drawerIcon:({tintColor})=>(
+                    <Icon name="ios-paper" color={tintColor} size={26} />
+                ),
+            }
+        },
     } , 
     {
         contentComponent: CustomDrawer,

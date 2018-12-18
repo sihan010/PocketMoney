@@ -12,8 +12,9 @@ class NewsList extends Component {
             Feeds: [],
             Categories: [],
             news: [],
-            selectedFeed: 'cryptocompare',
-            selectedCategory: 'BTC'
+            selectedFeed: 'coindesk',
+            selectedCategory: 'BTC',
+            error: false
         }
     }
 
@@ -39,7 +40,11 @@ class NewsList extends Component {
         }
     }
 
-    componentDidMount() {
+    initialAPICall(){
+        this.setState({
+            error:false,
+            loading: true,
+        })
         newsFeedAndcategory().then(feedAndCategortData => {
             NewsFetcher().then(newsData => {
                 //console.log("All Data Got: ", feedAndCategortData)
@@ -48,16 +53,59 @@ class NewsList extends Component {
                     loading: false,
                     Feeds: feedAndCategortData.Feeds,
                     Categories: feedAndCategortData.Categories,
-                    news: newsData
+                    news: newsData,
+                    error:false
                 })
+            })
+        }).catch(err=>{
+            console.log("Data Fetching Failed! ",err)
+            this.setState({
+                error:true,
+                loading: false,
             })
         })
     }
 
+    componentDidMount() {
+        this.initialAPICall();
+    }
+
     onChangedPicker(value, type) {
         switch (type) {
-            case 'feed': this.setState({ selectedFeed: value })
-            case 'cat': this.setState({ selectedCategory: value })
+            case 'feed': 
+                this.setState({ selectedFeed: value, loading: true })
+                NewsFetcher(value, this.state.selectedCategory).then(newsData => {
+                    console.log("All Data Got: ", newsData)
+                    this.setState({
+                        loading: false,
+                        news: newsData,
+                        error:false
+                    })
+                }).catch(err=>{
+                    console.log("Data Fetching Failed! ",err)
+                    this.setState({
+                        error:true,
+                        loading: false,
+                    })
+                })
+            break;
+            case 'cat': 
+                this.setState({ selectedCategory: value, loading: true })
+                NewsFetcher(this.state.selectedFeed, value).then(newsData => {
+                    console.log("All Data Got: ", newsData)
+                    this.setState({
+                        loading: false,
+                        news: newsData,
+                        error:false
+                    })
+                }).catch(err=>{
+                    console.log("Data Fetching Failed! ",err)
+                    this.setState({
+                        error:true,
+                        loading: false,
+                    })
+                })
+            break;
         }
     }
 
@@ -81,6 +129,14 @@ class NewsList extends Component {
 
     render() {
         return (
+            this.state.error?
+                <View style={styles.container}>
+                    <Text style={{ fontSize: 16, fontFamily: 'Dosis' }}>Data Fetching Failed !!</Text>
+                    <TouchableOpacity onPress={()=>this.initialAPICall()}>
+                        <Text>Retry</Text>
+                    </TouchableOpacity>
+                </View>
+            :
             this.state.loading ?
                 <View style={styles.container}>
                     <Image source={require('../../assets/Spinner/Infinity.gif')} style={{ width: 100, height: 100 }}></Image>
@@ -89,8 +145,8 @@ class NewsList extends Component {
                 :
                 <View style={styles.container}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                        <View style={{ flex: 1.3, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 2, padding: 2, borderRadius: 5 }}>
-                            <Text style={{ flex: 1, fontSize: 16, fontFamily: 'Dosis', fontWeight: '400' }}>Feed: </Text>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 2, padding: 2, borderRadius: 5 }}>
+                            <Text style={{fontSize: 16, fontFamily: 'Dosis', fontWeight: '400' }}>Feed: </Text>
                             <Picker
                                 onValueChange={(value) => this.onChangedPicker(value, 'feed')}
                                 mode="dropdown"
@@ -100,7 +156,7 @@ class NewsList extends Component {
                             </Picker>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 2, padding: 2, borderRadius: 5 }}>
-                            <Text style={{ flex: 2, fontSize: 16, fontFamily: 'Dosis', fontWeight: '400' }}>Cat.: </Text>
+                            <Text style={{fontSize: 16, fontFamily: 'Dosis', fontWeight: '400' }}>Category: </Text>
                             <Picker
                                 onValueChange={(value) => this.onChangedPicker(value, 'cat')}
                                 mode="dropdown"
@@ -110,6 +166,7 @@ class NewsList extends Component {
                             </Picker>
                         </View>
                     </View>
+
                     <View style={{ flex: 9}}>
                         <NewsListView data={this.state.news} navigation={this.props.navigation} />
                     </View>
