@@ -1,5 +1,6 @@
 import React, { Component } from 'reactn';
-import { StyleSheet, Text, View, WebView, Image } from 'react-native';
+import { StyleSheet, View, WebView, Image } from 'react-native';
+import {BannerView} from 'react-native-fbads'
 
 class OriginalReport extends Component {
     constructor(props) {
@@ -32,7 +33,6 @@ class OriginalReport extends Component {
         this.setState({
             loading:false
         })
-        console.log("View Loaded");
     }
 
     render() {
@@ -46,8 +46,13 @@ class OriginalReport extends Component {
                             <Image source={require('../../assets/Spinner/Infinity.gif')} style={{ width: 80, height: 80 }}></Image>
                         </View>
                     }                                     
-                    <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-                        <Text style={{ fontSize: 15, fontFamily: 'Dosis' }}>{url}</Text>
+                    <View style={{ alignItems:'flex-start', justifyContent:'flex-end' }}>
+                        <BannerView
+                            placementId='345487866030573_349789775600382'
+                            type="standard"
+                            onPress={(didClick) => console.log('Drawer Ad Clicked',didClick)}
+                            onError={err => console.log('Drawer Ad Error', err)}
+                        />
                     </View>
                 </View>
         );

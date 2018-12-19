@@ -4,6 +4,7 @@ import { createAppContainer, createDrawerNavigator, DrawerItems } from 'react-na
 import News from '../Screens/News'
 import CryptoCurrencies from '../Screens/CryptoCurrencies'
 import Icon from 'react-native-vector-icons/Ionicons'
+import {BannerView} from 'react-native-fbads'
 
 //const width = Dimensions.get("screen").width;
 
@@ -16,7 +17,13 @@ const CustomDrawer = (props) =>(
             <DrawerItems {...props} />
         </ScrollView>
         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-            <Image source={require('../assets/logo/logo.png')} style={{height:120, width:120}} />
+            {/* <Image source={require('../assets/logo/logo.png')} style={{height:120, width:120}} /> */}
+            {/* <BannerView
+                placementId='345487866030573_349780602267966'
+                type="standard"
+                onPress={(didClick) => console.log('Drawer Ad Clicked',didClick)}
+                onError={err => console.log('Drawer Ad Error', err)}
+            /> */}
         </View>
     </SafeAreaView>
 )

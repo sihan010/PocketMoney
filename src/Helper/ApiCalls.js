@@ -1,10 +1,8 @@
 const allCryptoCurrencyList = (startIndex) => {
-    let endpoint = `https://api.coinmarketcap.com/v2/ticker/?start=${startIndex}&limit=10&sort=rank`;
-    //let endpoint = `https://api.coinmarketcap.com/v2/ticker/?start=${startIndex}&limit=10&sort=rank`;
+    let endpoint = `https://api.coinmarketcap.com/v2/ticker/?start=${startIndex}&limit=100&sort=rank`;
     return fetch(endpoint)
         .then(res => res.json())
         .then(data => {
-            //console.log("Raw Data: ",data.data);
             return data.data
         })
         .catch(err => {
@@ -14,11 +12,9 @@ const allCryptoCurrencyList = (startIndex) => {
 
 const singleCryptoCurrencyDetails = (symbol) => {
     let endpoint = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${symbol}&tsyms=USD,EUR,GBP,AUD,CAD,DKK,HKD,NZD,NOK,PLN,SGD,ZAR,SEK,CHF,RUB,INR,BDT,MXN,CZK,JPY,CNY`;
-    //let endpoint = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${symbol}&tsyms=USD,EUR,GBP`;
     return fetch(endpoint)
         .then(res => res.json())
         .then(data => {
-            //console.log("Raw Details Data: ",data.DISPLAY[symbol]);
             return data;
         })
         .catch(err => {
@@ -31,7 +27,6 @@ const cryptoChartData = (crypto, fiat) => {
     return fetch(endpoint)
         .then(res => res.json())
         .then(data => {
-            //console.log("Raw Chart Data: ",data.Data);
             return data.Data;
         })
         .catch(err => {

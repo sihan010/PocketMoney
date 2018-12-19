@@ -4,7 +4,7 @@ import {singleCryptoCurrencyDetails} from '../../Helper/ApiCalls'
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import Icon from 'react-native-vector-icons/Ionicons'
 import CryptoConversionView from './CryptoConversionView'
-import {AdSettings, InterstitialAdManager} from 'react-native-fbads'
+import {InterstitialAdManager, BannerView} from 'react-native-fbads'
 
 const KEYS_TO_FILTER = ['name']
 
@@ -45,16 +45,16 @@ class CryptoDetails extends Component {
         let initialData= this.props.navigation.getParam('initialData','{symbol:"BTC"}');
         let symbol= initialData.symbol;
         this.apiCall(symbol);
+    }
 
-        // AdSettings.clearTestDevices();
-        // AdSettings.addTestDevice(AdSettings.currentDeviceHash);
-        // InterstitialAdManager.showAd('345487866030573_345535846025775')
-        // .then(didClick => {
-        //     ToastAndroid.show('Thank you for supproting us.', ToastAndroid.SHORT)
-        // })
-        // .catch(error => {
-        //     ToastAndroid.show(error, ToastAndroid.SHORT)
-        // });
+    componentWillUnmount(){
+        InterstitialAdManager.showAd('345487866030573_345535846025775')
+        .then(didClick => {
+            console.log("Ad Clicked !", didClick)
+        })
+        .catch(error => {
+            console.log("Ad error !", error)
+        });
     }
 
     apiCall(symbol){        
@@ -64,10 +64,7 @@ class CryptoDetails extends Component {
                     loading:false
                 })
             }
-            else{
-                // for(item in data){
-                //     console.log(data[item]);
-                // }
+            else{               
                 this.setState({
                     loading:false,
                     apiData:data,
@@ -125,23 +122,21 @@ class CryptoDetails extends Component {
         let item = this.props.navigation.getParam('initialData');
         return (
             <View style={{flex:1, backgroundColor:'#D6EAF8'}}>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor:'#D5F5E3', borderRadius:10, margin:10, padding:10 }}>
-                    <View style={{flex:1.5, flexDirection:'row'}}>
-                        <View style={{alignItems:'flex-end',justifyContent:'center'}}>
-                            <Image style={{ width: 50, height: 50, marginRight: 20 }} source={{ uri: `https://s2.coinmarketcap.com/static/img/coins/128x128/${item.id}.png` }} />                            
-                        </View>
-                        <View style={{alignItems:'flex-start',justifyContent:'center'}}>
-                            <Text style={{ color: 'black', fontFamily: 'Dosis', fontSize: 18 }}>Symbol: {item.symbol}</Text>
-                            <Text style={{ color: 'black', fontFamily: 'Dosis', fontSize: 16 }}>Name: {item.name}</Text>
-                        </View>
+                <View style={{ flex: 1,flexDirection:'row', alignItems: 'center', justifyContent: 'center', backgroundColor:'#D5F5E3', borderRadius:10, margin:10, padding:10 }}>                    
+                    <View style={{flex:0.50, alignItems:'center',justifyContent:'center'}}>
+                        <Image style={{ width: 50, height: 50, marginRight: 20 }} source={{ uri: `https://s2.coinmarketcap.com/static/img/coins/128x128/${item.id}.png` }} />                            
                     </View>
-                    <View style={{flex:0.5, alignItems:'center',justifyContent:'center',margin:5}}>
+                    <View style={{flex:1,alignItems:'flex-start',justifyContent:'center'}}>
+                        <Text style={{ color: 'black', fontFamily: 'Dosis', fontSize: 18 }}>Symbol: {item.symbol}</Text>
+                        <Text style={{ color: 'black', fontFamily: 'Dosis', fontSize: 16 }}>Name: {item.name}</Text>
+                    </View>
+                    <View style={{flex:1, alignItems:'flex-start',justifyContent:'center',margin:5}}>
                         <Text style={{ color: '#196F3D', fontSize: 22, fontFamily: 'Monoton' }}>Rank: {item.rank}</Text>                        
-                    </View>                    
+                    </View>                                                     
                 </View>
 
                 {/* ScrollView */}
-                <View style={{ flex: 5.5, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ flex: 9, alignItems: 'center', justifyContent: 'center' }}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginHorizontal: 10, marginTop: 5, backgroundColor: 'white', borderRadius: 10 }}>
                         <View style={{ flex: 9 }}>
                             <SearchInput placeholder="Your Desired Fiat Currency" style={{ fontSize: 15, fontFamily: 'Dosis' }} onChangeText={(term) => { this.searchUpdated(term) }} />
@@ -152,7 +147,7 @@ class CryptoDetails extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{flex: 7, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 10}}>
+                    <View style={{flex: 9, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 10}}>
                         {
                             this.state.loading ?
                                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -167,6 +162,15 @@ class CryptoDetails extends Component {
                         
                     </View>
                 </View>
+
+                <View style={{alignItems:'flex-start', justifyContent:'flex-end'}}>
+                    <BannerView
+                        placementId='345487866030573_349780602267966'
+                        type="standard"
+                        onPress={(didClick) => console.log('Drawer Ad Clicked',didClick)}
+                        onError={err => console.log('Drawer Ad Error', err)}
+                    />                  
+                 </View>
             </View>
         )
     }
