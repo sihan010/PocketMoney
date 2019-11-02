@@ -10,8 +10,6 @@
     "lodash": "^4.17.11",
     "react": "16.6.1",
     "react-native": "0.57.7",
-    "react-native-fbads": "^6.0.0-rc.3",
-    "react-native-fbsdk": "^0.8.0",
     "react-native-highcharts": "^1.0.2",
     "react-native-round-flags": "^1.0.4",
     "react-native-search-filter": "^0.1.4",

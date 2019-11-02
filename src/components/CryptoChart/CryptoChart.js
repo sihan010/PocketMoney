@@ -1,8 +1,7 @@
-import React , {Component} from 'reactn'
-import {View, Text, Image} from 'react-native'
-import {cryptoChartData} from '../../Helper/ApiCalls'
+import { Image, Text, View } from 'react-native'
+import React, { Component } from 'reactn'
+import { cryptoChartData } from '../../Helper/ApiCalls'
 import CryptoChartView from './CryptoChartView'
-import {BannerView} from 'react-native-fbads'
 
 class CryptoChart extends Component {
     constructor(props){
@@ -80,14 +79,6 @@ class CryptoChart extends Component {
             :
                 <View style={{ flex: 1, backgroundColor: '#D6EAF8' }}>
                     <CryptoChartView data={this.state.apiData} title={title} />
-                    <View style={{alignItems:'flex-start', justifyContent:'flex-end'}}>
-                        <BannerView
-                            placementId='345487866030573_350118208900872'
-                            type="standard"
-                            onPress={(didClick) => console.log('Drawer Ad Clicked',didClick)}
-                            onError={err => console.log('Drawer Ad Error', err)}
-                        />                  
-                    </View>
                 </View>                
         );
     }

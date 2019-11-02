@@ -1,10 +1,9 @@
-import React, { Component } from 'reactn'
-import { View, Text, Image, TouchableOpacity, ToastAndroid } from 'react-native'
-import {singleCryptoCurrencyDetails} from '../../Helper/ApiCalls'
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import SearchInput, { createFilter } from 'react-native-search-filter';
-import Icon from 'react-native-vector-icons/Ionicons'
-import CryptoConversionView from './CryptoConversionView'
-import {InterstitialAdManager, BannerView} from 'react-native-fbads'
+import Icon from 'react-native-vector-icons/Ionicons';
+import React, { Component } from 'reactn';
+import { singleCryptoCurrencyDetails } from '../../Helper/ApiCalls';
+import CryptoConversionView from './CryptoConversionView';
 
 const KEYS_TO_FILTER = ['name']
 
@@ -47,16 +46,6 @@ class CryptoDetails extends Component {
         this.apiCall(symbol);
     }
 
-    componentWillUnmount(){
-        InterstitialAdManager.showAd('345487866030573_345535846025775')
-        .then(didClick => {
-            console.log("Ad Clicked !", didClick)
-        })
-        .catch(error => {
-            console.log("Ad error !", error)
-        });
-    }
-
     apiCall(symbol){        
         singleCryptoCurrencyDetails(symbol).then(data=>{
             if(data===-1){
@@ -78,6 +67,8 @@ class CryptoDetails extends Component {
     searchUpdated(term){
         this.setState({
             searchTerm: term
+        },()=>{
+            this.onSearchPress();
         })
     }
 
@@ -162,15 +153,6 @@ class CryptoDetails extends Component {
                         
                     </View>
                 </View>
-
-                <View style={{alignItems:'flex-start', justifyContent:'flex-end'}}>
-                    <BannerView
-                        placementId='345487866030573_349780602267966'
-                        type="standard"
-                        onPress={(didClick) => console.log('Drawer Ad Clicked',didClick)}
-                        onError={err => console.log('Drawer Ad Error', err)}
-                    />                  
-                 </View>
             </View>
         )
     }

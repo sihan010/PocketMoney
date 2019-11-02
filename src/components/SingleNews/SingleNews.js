@@ -1,6 +1,5 @@
-import React, {Component} from 'reactn';
-import {StyleSheet, Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
-import {BannerView, InterstitialAdManager} from 'react-native-fbads'
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { Component } from 'reactn';
 
 class SingleNews extends Component{
     constructor(props){
@@ -26,16 +25,6 @@ class SingleNews extends Component{
         )
     }
 
-    componentWillUnmount(){
-        InterstitialAdManager.showAd('345487866030573_345494499363243')
-        .then(didClick => {
-            console.log("Ad Clicked !", didClick)
-        })
-        .catch(error => {
-            console.log("Ad error !", error)
-        });
-    }
-
     render() {
         let data=this.props.navigation.getParam('newsData');
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -57,14 +46,6 @@ class SingleNews extends Component{
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-                 <View style={{alignItems:'flex-start', justifyContent:'flex-end'}}>
-                    <BannerView
-                        placementId='345487866030573_349789482267078'
-                        type="standard"
-                        onPress={(didClick) => console.log('Drawer Ad Clicked',didClick)}
-                        onError={err => console.log('Drawer Ad Error', err)}
-                    />                  
-                 </View>
             </View>
         );
       }

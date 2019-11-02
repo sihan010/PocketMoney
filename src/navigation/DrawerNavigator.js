@@ -1,30 +1,18 @@
-import React from 'react'
-import {View, SafeAreaView, ScrollView, Dimensions, Image} from 'react-native'
+import React from 'react';
+import { Image, SafeAreaView, ScrollView, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { createAppContainer, createDrawerNavigator, DrawerItems } from 'react-navigation';
-import News from '../Screens/News'
-import CryptoCurrencies from '../Screens/CryptoCurrencies'
-import Icon from 'react-native-vector-icons/Ionicons'
-import {BannerView} from 'react-native-fbads'
-
-//const width = Dimensions.get("screen").width;
+import CryptoCurrencies from '../Screens/CryptoCurrencies';
+import News from '../Screens/News';
 
 const CustomDrawer = (props) =>(
-    <SafeAreaView style={{flex:1, backgroundColor:'#D6EAF8'}}>
-        <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-            <Image source={require('../assets/logo/logo.png')} style={{height:120, width:120}} />
+    <SafeAreaView style={{flex:1}}>
+        <View style={{alignItems:'center', justifyContent:'center'}}>
+            <Image source={require('../assets/logo/logo.png')} style={{height:120, width:120, marginVertical:50}} />
         </View>
         <ScrollView style={{flex:5}}>
             <DrawerItems {...props} />
         </ScrollView>
-        <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-            {/* <Image source={require('../assets/logo/logo.png')} style={{height:120, width:120}} /> */}
-            {/* <BannerView
-                placementId='345487866030573_349780602267966'
-                type="standard"
-                onPress={(didClick) => console.log('Drawer Ad Clicked',didClick)}
-                onError={err => console.log('Drawer Ad Error', err)}
-            /> */}
-        </View>
     </SafeAreaView>
 )
 
@@ -49,10 +37,16 @@ const RootNavigator = createDrawerNavigator(
     } , 
     {
         contentComponent: CustomDrawer,
+        drawerBackgroundColor:'rgba(19, 141, 117,0.9)',
         //drawerWidth:width,
         contentOptions:{
-            activeTintColor:'#1A5276',
-            inactiveTintColor:'#283747'
+            activeTintColor:'#2E4053',
+            inactiveTintColor:'#212F3C',
+            labelStyle:{
+                fontWeight: 'normal',
+                fontFamily:'Dosis',
+                fontSize:20
+            }
         }
     }      
 );
